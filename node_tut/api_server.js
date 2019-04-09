@@ -15,6 +15,11 @@ var srv = http.createServer(function (req, resp) {
     if (start >= 0) {
         fmtDate = parsed.path.substring(start + 4);
         tm = Date.parse(fmtDate);
+    } else {
+        resp.writeHead(400);
+        resp.end();
+
+        return;
     }
 
     if (routename == '/api/parsetime') {
@@ -41,7 +46,8 @@ var srv = http.createServer(function (req, resp) {
         resp.writeHead(200, { 'Content-Type': 'application/json' })
         resp.end(JSON.stringify(obj));
     } else {
-        resp.writeHead(404).end();
+        resp.writeHead(404);
+        resp.end();
     }
 })
 
